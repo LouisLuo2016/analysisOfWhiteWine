@@ -318,7 +318,7 @@ wqw.noX.by_quality$quality <- as.integer(wqw.noX.by_quality$quality)
 # alcohol和quality之间的相关性分布
 
 ggplot(data = wqw.noX, aes(x = quality, y = alcohol)) +
-  geom_boxplot(aes(fill=quality, color = I('blue'))) +
+  geom_boxplot(aes(color = I('blue'))) +
   stat_summary(fun.y = mean, geom = 'point', shape = 4, color = "red") +
   geom_line(data = wqw.noX.by_quality, aes(quality, mean_alcohol),
             size = 1, color = 'red', linetype='dotted')
@@ -336,7 +336,7 @@ alcohol和quality之间有较强的正相关性，在quality（3-5）时，alcoh
 ### volatile.acidity和quality之间的相关性分布
 ```{r echo=FALSE, quality_volatile.acidity_Bivariate_Plots}
 ggplot(data = wqw.noX, aes(x = quality, y = volatile.acidity)) +
-  geom_boxplot(aes(fill=quality, color = I('blue'))) +
+  geom_boxplot(aes(color = I('blue'))) +
   stat_summary(fun.y = mean, geom = 'point', shape = 4, color = "red") +
   geom_line(data = wqw.noX.by_quality, aes(quality, mean_volatile.acidity),
             size = 1, color = 'red', linetype='dotted')
@@ -353,7 +353,7 @@ with(wqw, cor.test(x = quality, y = volatile.acidity, method = 'pearson'))
 ### chlorides和quality之间的相关性分布
 ```{r echo=FALSE, quality_chlorides_Bivariate_Plots}
 ggplot(data = wqw.noX, aes(x = quality, y = chlorides)) +
-  geom_boxplot(aes(fill=quality, color = I('blue'))) +
+  geom_boxplot(aes(color = I('blue'))) +
   stat_summary(fun.y = mean, geom = 'point', shape = 4, color = "red") +
   geom_line(data = wqw.noX.by_quality, aes(quality, mean_chlorides),
             size = 1, color = 'red', linetype='dotted')
@@ -370,7 +370,7 @@ chlorides和quality之间有较弱的负相关性，随着chlorides含量减少q
 ### density和quality之间的相关性分布
 ```{r echo=FALSE, quality_density_Bivariate_Plots}
 ggplot(data = wqw.noX, aes(x = quality, y = density)) +
-  geom_boxplot(aes(fill=quality, color = I('blue'))) +
+  geom_boxplot(aes(color = I('blue'))) +
   stat_summary(fun.y = mean, geom = 'point', shape = 4, color = "red") +
   geom_line(data = wqw.noX.by_quality, aes(quality, mean_density),
             size = 1, color = 'red', linetype='dotted')
@@ -387,7 +387,7 @@ density和quality之间有明显的负相关性，随着density减少quality呈�
 ### total.sulfur.dioxide和quality之间的相关性分布
 ```{r echo=FALSE, quality_total.sulfur.dioxide_Bivariate_Plots}
 ggplot(data = wqw.noX, aes(x = quality, y = total.sulfur.dioxide)) +
-  geom_boxplot(aes(fill=quality, color = I('blue'))) +
+  geom_boxplot(color = I('blue')) +
   stat_summary(fun.y = mean, geom = 'point', shape = 4, color = "red") +
   geom_line(data = wqw.noX.by_quality, aes(quality, mean_total.sulfur.dioxide),
             size = 1, color = 'red', linetype='dotted')
@@ -612,10 +612,9 @@ alcohol和quality之间有较强的正相关性，在quality（3~5）时，alcoh
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE, Quality_by_alcohol_and_Density_Multivariate_Plots}
 ggplot(data = wqw.noX, aes(x = density, y = alcohol)) +
-  geom_point(aes(color = quality), alpha = 0.5, size = 2) +
-  scale_color_brewer(type = 'qual',
-    guide = guide_legend(title = 'Quality', reverse = T,
-    override.aes = list(alpha = 1, size = 2))) +  
+  geom_point(aes(color = quality), position = position_jitter()) +
+  scale_color_brewer(type = 'seq',
+    guide = guide_legend(title = 'Quality', reverse = T)) +  
   scale_x_continuous(limits = c(0.9871, 1.001)) +
   geom_smooth(method = 'lm') +
   theme_dark() +
@@ -627,10 +626,9 @@ ggplot(data = wqw.noX, aes(x = density, y = alcohol)) +
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE, Quality_by_Alcohol_and_Volatile.Acidity_Multivariate_Plots}
 ggplot(data = wqw.noX, aes(x = volatile.acidity, y = alcohol)) +
-  geom_point(aes(color = quality), alpha = 0.5, size = 2) +
-  scale_color_brewer(type = 'qual',
-    guide = guide_legend(title = 'Quality', reverse = T,
-    override.aes = list(alpha = 1, size = 2))) +  
+  geom_point(aes(color = quality), position = position_jitter()) +
+  scale_color_brewer(type = 'seq',
+    guide = guide_legend(title = 'Quality', reverse = T)) +
   scale_x_continuous(limits = c(0, 0.9)) +
   geom_smooth(method = 'lm') +
   theme_dark() +
@@ -642,10 +640,9 @@ ggplot(data = wqw.noX, aes(x = volatile.acidity, y = alcohol)) +
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE, Quality_by_Alcohol_and_Chlorides_Multivariate_Plots}
 ggplot(data = wqw.noX, aes(x = chlorides, y = alcohol)) +
-  geom_point(aes(color = quality), alpha = 0.5, size = 2) +
-  scale_color_brewer(type = 'qual',
-    guide = guide_legend(title = 'Quality', reverse = T,
-    override.aes = list(alpha = 1, size = 2))) +
+  geom_point(aes(color = quality), position = position_jitter()) +
+  scale_color_brewer(type = 'seq',
+    guide = guide_legend(title = 'Quality', reverse = T)) + 
   scale_x_continuous(limits = c(0.02, 0.08)) +
   geom_smooth(method = 'lm') +
   theme_dark() +
@@ -657,10 +654,9 @@ ggplot(data = wqw.noX, aes(x = chlorides, y = alcohol)) +
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE, Quality_by_Alcohol_and_Total.sulfur.dioxide_Multivariate_Plots}
 ggplot(data = wqw.noX, aes(x = total.sulfur.dioxide, y = alcohol)) +
-  geom_point(aes(color = quality), alpha = 0.5, size = 2) +
-  scale_color_brewer(type = 'qual',
-    guide = guide_legend(title = 'Quality', reverse = T,
-    override.aes = list(alpha = 1, size = 2))) +
+  geom_point(aes(color = quality), position = position_jitter()) +
+  scale_color_brewer(type = 'seq',
+    guide = guide_legend(title = 'Quality', reverse = T)) + 
   scale_x_continuous(limits = c(0, 250)) +
   geom_smooth(method = 'lm') +
   theme_dark() +
@@ -673,43 +669,6 @@ ggplot(data = wqw.noX, aes(x = total.sulfur.dioxide, y = alcohol)) +
 与酒精含量呈负相关的密度，挥发性酸，氯化物和总二氧化硫，与质量也呈负相关性，
 随着这些成分的增加，酒的质量在下降。
 
-### Quality versus Alcohol by Density.bucket
-
-```{r echo=FALSE, Quality_versus_Alcohol_by_Density.bucket_Multivariate_Plots}
-wqw$density.bucket <- cut(wqw$density, c(0.9, 0.994, 1.04))
-
-summary(wqw$density)
-
-ggplot(data = wqw, aes(x = alcohol, y = quality)) +
-  geom_point(aes(color = density.bucket), alpha = 0.5, size = 2,
-             position = position_jitter()) +
-  geom_smooth(method = 'lm') +
-  theme_dark() +
-  ggtitle('Quality versus Alcohol by Density.bucket')
-```
-
-再次呈现出酒的质量随着酒精含量的增加而提升，密度在0.9~0.994区间的酒呈现出
-酒精含量更高，质量更好的分布趋势。
-
-
-### Quality versus Density by Alcohol.bucket
-
-```{r echo=FALSE, message=FALSE, warning=FALSE, Quality_versus_Density_by_Alcohol.bucket_Multivariate_Plots}
-wqw$alcohol.bucket <- cut(wqw$alcohol, c(1, 9, 11, 15))
-
-summary(wqw$alcohol)
-
-ggplot(data = wqw, aes(x = density, y = quality)) +
-  geom_point(aes(color = alcohol.bucket), alpha = 0.5, size = 2,
-             position = position_jitter()) +
-  scale_x_continuous(limits = c(0.9871, 1.001)) +
-  geom_smooth(method = 'lm') +
-  theme_dark() +
-  ggtitle('Quality versus Density by Alcohol.bucket')
-```
-
-相同的结论，酒的质量随着密度的增加而降低，低酒精含量的酒分布在高密度的区域，
-这一区域酒的质量偏低，酒精含量更高的酒分布在低密度的区域，低密度区域的酒质量更好。
 
 ### Quality * Density versus quality.bucket
 
@@ -721,7 +680,7 @@ summary(wqw$quality)
 table(wqw$quality.bucket)
 
 ggplot(data = wqw, aes(x = quality.bucket, y = alcohol * density)) +
-  geom_boxplot(aes(fill=quality.bucket, color = I('blue'))) +
+  geom_boxplot(aes(color = I('blue'))) +
   stat_summary(fun.y = mean, geom = 'point', shape = 4, color = "red") +
   ggtitle('Quality * Density versus quality.bucket')
 
@@ -766,7 +725,7 @@ qplot(x = quality, ylab = "count",binwidth = 0.5, data = wqw,
 ### 绘图二
 ```{r echo=FALSE, Plot_Two}
 ggplot(data = wqw.noX, aes(x = quality, y = alcohol)) +
-  geom_boxplot(aes(fill=quality, color = I('blue'))) +
+  geom_boxplot(aes(color = I('blue'))) +
   stat_summary(fun.y = mean, geom = 'point', shape = 4, color = "red") +
   geom_line(data = wqw.noX.by_quality, aes(quality, mean_alcohol),
             size = 1, color = 'red', linetype='dotted') +
@@ -781,36 +740,39 @@ alcohol和quality之间有较强的正相关性，在quality（3~5）时，alcoh
 
 
 ### 绘图三
-```{r echo=FALSE, Plot_Three}
-ggplot(data = wqw, aes(x = alcohol, y = quality)) +
-  geom_point(aes(color = density.bucket), alpha = 0.5, size = 2,
-             position = position_jitter()) +
-  scale_color_brewer(type = 'qual',
-    guide = guide_legend(title = 'Density.bucket(g/cm^3)', reverse = T,
-    override.aes = list(alpha = 1, size = 2)))+
+```{r echo=FALSE, message=FALSE, warning=FALSE,Plot_Three}
+ggplot(data = wqw.noX, aes(x = density, y = alcohol)) +
+  geom_point(aes(color = quality), position = position_jitter()) +
+  scale_color_brewer(type = 'seq',
+    guide = guide_legend(title = 'Quality', reverse = T)) +  
+  scale_x_continuous(limits = c(0.9871, 1.001)) +
   geom_smooth(method = 'lm') +
   theme_dark() +
-  xlab("Alcolhol (%volume)") +
-  ggtitle('Quality versus Alcohol by Density.bucket')
+  labs(x = 'density (mg/l)',
+       y = 'alcolhol (% by volume)',
+       title = 'Density versus Alcohol by Quality'
+  )
+
 ```
 
 ### 描述三
-再次呈现出酒的质量随着酒精含量的增加而提升，密度在0.9~0.994区间的酒呈现出
-酒精含量更高，质量更好的分布趋势。
+在密度增加变大时，酒精含量减少，酒的质量也降低。
+酒的质量和酒精含量是很强的正相关性，质量较好的酒大部分的酒精含量高于10.
 
 
 ------
 
 # 反思
-白葡萄酒数据包含4898条观察记录和12个属性特征，有11个属性特征属于客观测试所得（
-包括物理和化学测量方法），有1个质量属性是基于传感数据所得（通过葡萄酒专家至少
-进行3次评估的中位数），每位专家都对葡萄酒质量进行评分在0（非常糟糕）和10
-（非常优秀）之间。
-
-我对每个输入属性都进行了单变量绘图分析，大部分属性数据分布呈正太分布。
-残糖分布右边有长尾数据，对X轴进行对数转换，转换后呈双峰分布。
-
-双变量分析中，我对相关系数较强的属性都做了绘图分析。
-葡萄酒的质量quality和酒精度alcohol有很强的正相关性，质量quality与密度dencity有
-较强的负相关性，而酒精alcohol和密度dencity有更强的负相关。由于酒的密度取决于
-酒精的百分比和糖含量，密度越大酒精含量越小，酒的质量越差。
+我在开始做EDA项目时遇到三类问题，这些问题对我造成的困扰几乎让我放弃数据分析
+这个行业，认为自己没有能力做好这份工作。
+第一类问题，没有探索的思路，不知该如何开始分析工作。
+第二类问题，想象中有很多有创意还很漂亮的图表，却总是不知道该如何实现。
+第三类问题，对R基本知识掌握不熟练，阻碍分析目标达成。
+在助教老师的帮助下，经历重重磨难完成项目之后，我发现这些问题的共同原因是缺乏
+完成EDA项目经验，写的代码太少，对所学的知识没有足够的运用练习。
+针对缺乏对知识运用和练习的问题，我计划后期通过学习和模仿课程中提到的一些优秀
+EDA项目网站的案例，学习案例中的分析思路和经验，提高自己的分析能力。
+另外，我认识到EDA是一个探索性的分析过程，并不是一开始就会有完整的分析步骤。
+首先提出自己感兴趣的问题，围绕问题一步步寻找探索相关的线索，直至找到问题的答案。
+还有，遇到问题不能轻言放弃，及时寻求帮助，降低自己的期望，
+用自己力所能及的能力达成目标。
